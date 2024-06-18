@@ -1,24 +1,31 @@
 "use client";
 import { useEffect, useState } from "react";
-import fetch from "isomorphic-unfetch";
+import axios from "axios";
+import styles from "../page.module.css";
 
 const Users = () => {
   const [responseData, setResponseData] = useState(null);
 
   useEffect(() => {
     async function fetchData() {
-      const url = "api/hello"; // Replace with the URL of your Next.js API route
-      const response = await fetch(url, {
-        method: "POST",
-        body: JSON.stringify({
-          // Pass any data needed for the POST request here
-        }),
-        headers: { "Content-Type": "application/json" },
-      });
+      const url = "http://localhost:3000/api/hello";
+      try {
+        const response = await axios.post(
+          url,
+          {
+            // Pass any data needed for the POST request here
+          },
+          {
+            headers: { "Content-Type": "application/json" },
+          }
+        );
 
-      if (response.status === 200) {
-        const jsonResponse = await response.json();
-        setResponseData(jsonResponse);
+        if (response.status === 200) {
+          const jsonResponse = response.data;
+          setResponseData(jsonResponse);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
       }
     }
 
@@ -26,7 +33,9 @@ const Users = () => {
   }, []);
 
   return (
-    <div>{responseData ? JSON.stringify(responseData) : "Loading..."}</div>
+    <div className={styles.div}>
+      {responseData ? JSON.stringify(responseData) : "Loading..."}
+    </div>
   );
 };
 
