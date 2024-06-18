@@ -1,6 +1,5 @@
 // pages/api/esp-data.js
 import { NextRequest, NextResponse } from "next/server";
-import { Server } from "socket.io";
 import fs from "fs";
 let io; // Declare the Socket.IO instance
 export async function GET() {
