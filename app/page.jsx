@@ -5,6 +5,7 @@ import axios from "axios";
 
 export default function Users() {
   const [responseData, setResponseData] = useState(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -17,9 +18,13 @@ export default function Users() {
           const jsonResponse = response.data;
           console.log("Response data: ", jsonResponse);
           setResponseData(jsonResponse);
+          setError(null); // Clear previous errors if the request is successful
         }
       } catch (error) {
         console.error("Error fetching data:", error);
+        setError(
+          "Error fetching data. Please make sure the server is running."
+        );
       }
     };
 
@@ -36,7 +41,11 @@ export default function Users() {
   return (
     <div>
       <h1>ESP Data</h1>
-      <p>{responseData?.salam}</p>
+      {error ? (
+        <p style={{ color: "red" }}>{error}</p>
+      ) : (
+        <p>{responseData?.salam}</p>
+      )}
     </div>
   );
 }
