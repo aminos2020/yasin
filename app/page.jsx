@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import axios from "axios";
 
 export default function Users() {
   const [responseData, setResponseData] = useState(null);
@@ -12,13 +11,16 @@ export default function Users() {
       const url = "/api/get-data"; // Ensure the URL matches the API route
 
       try {
-        const response = await axios.get(url);
+        const response = await fetch(url);
 
-        if (response.status === 200) {
-          const jsonResponse = response.data;
+        if (response.ok) {
+          const jsonResponse = await response.json();
           console.log("Response data: ", jsonResponse);
           setResponseData(jsonResponse);
           setError(null); // Clear previous errors if the request is successful
+        } else {
+          console.error("Unexpected status code:", response.status);
+          setError(`Unexpected status code: ${response.status}`);
         }
       } catch (error) {
         console.error("Error fetching data:", error);
