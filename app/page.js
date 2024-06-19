@@ -1,14 +1,14 @@
 "use client";
 
-// const response = await fetch(`/api/login`)
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 export default function Users() {
   const [responseData, setResponseData] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
-      const url = "http://localhost:3000/api/getdata";
+      const url = "/api/get-data"; // Ensure the URL matches the API route
 
       try {
         const response = await axios.get(url);
@@ -29,7 +29,6 @@ export default function Users() {
     }, 5000);
 
     return () => {
-      // Clear the interval when the component unmounts
       clearInterval(intervalId);
     };
   }, []);

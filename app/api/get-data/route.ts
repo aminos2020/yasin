@@ -1,11 +1,12 @@
-// pages/api/get-data.js
+// pages/api/get-data.ts
 import { NextRequest, NextResponse } from "next/server";
 import fs from "fs";
 
-export async function GET(req, res) {
+export async function GET(req: NextRequest): Promise<NextResponse> {
   try {
     // Read data from the JSON file
-    const data = JSON.parse(fs.readFileSync("data.json"));
+    const dataBuffer = fs.readFileSync("data.json");
+    const data = JSON.parse(dataBuffer.toString());
     console.log("data is", data);
     return NextResponse.json(data);
   } catch (error) {

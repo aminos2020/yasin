@@ -21,6 +21,14 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/api/socket/route.js", "app/api/hello/route.js", "app/page.js"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "pages/api/**/*.ts", // Ensure this matches your file structure
+    "app/api/**/*.ts", // Ensure this matches your file structure
+    "app/page.tsx" // Update this if the file extension is tsx
+  ],
   "exclude": ["node_modules"]
 }

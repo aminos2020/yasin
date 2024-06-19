@@ -6,10 +6,10 @@ export async function GET() {
   return NextResponse.json({ message: "Hello, yasin" });
 }
 
-export async function POST(req, res) {
+export async function POST(req: NextRequest, res: NextResponse) {
   try {
     const data = await req.json();
-    console.log("data");
+    console.log(data);
     fs.writeFileSync("data.json", JSON.stringify(data));
     // if (!io) {
     //   const server = new Server(res.socket.server);
